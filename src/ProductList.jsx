@@ -1,10 +1,17 @@
+import { useDispatch } from 'react-redux';
+
+
 import React, { useState } from 'react';
+
+
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice'; // Assuming addItem is from CartSlice
 
 
 function ProductList() {
+    const dispatch = useDispatch(); // Initialize dispatch
+
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({}); // Track items added to the cart
@@ -245,10 +252,7 @@ function ProductList() {
    }
 
    const handleAddToCart = (plant) => {
-    // Dispatch to global store using addItem (Redux or context can be used)
-    addItem(plant);
-    
-    // Update local state to reflect the product is added
+    dispatch(addItem(plant)); // Dispatch addItem action to Redux store
     setAddedToCart((prev) => ({
         ...prev,
         [plant.name]: true
